@@ -19,3 +19,7 @@
 - 前端零运行时依赖后端，私有仓 + Vercel 导入即部署。
 - 数据更新依赖重新部署（Vercel 重构建）或 cron 直接提交触发自动部署；快照 JSON 本身不经过接口。
 - ECharts 未代码分割，首包 gzip 约 250KB，对大屏可接受。
+
+## 更新（2026-11-23）
+
+部署平台由 Vercel 改为 GitHub Pages（用户要求可直接访问；免费计划私有仓不支持 Pages，仓库转为公有）。hash 路由与纯静态决策不变，Pages 项目页前缀 `/fangjia-monitor/` 由构建期 `PAGES_BASE` 注入，见 `.github/workflows/deploy.yml`。

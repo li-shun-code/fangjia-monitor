@@ -1,4 +1,4 @@
-# 每日采集：房天下+链家 → snapshot/history，提交回仓库（提交即触发 Vercel 重新部署）
+# 每日采集：房天下+链家 → snapshot/history，提交回仓库（提交即触发 deploy-pages 重新部署）
 name: collect
 on:
   schedule:

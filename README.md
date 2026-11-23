@@ -23,7 +23,8 @@
 
 - `scripts/collect.mjs`：Node + cheerio 采集器 → 归一化 → `public/data/snapshot.json`（前端只读）；均价追加进 `data/history.json`（同日覆盖），并归档 `data/snapshots/<日期>.json`。
 - `src/`：React 19 + Vite + TypeScript + ECharts 5（按需注册），hash 路由，深色玻璃主题（`src/styles.css` 为设计单一事实）。
-- `.github/workflows/collect.yml`：每日北京时间 05:00 cron 采集并提交；提交可触发 Vercel 自动重新部署。
+- `.github/workflows/collect.yml`：每日北京时间 05:00 cron 采集并提交；提交触发 Pages workflow 自动重新部署。
+- `.github/workflows/deploy.yml`：构建（带 `/fangjia-monitor/` base）并发布到 GitHub Pages。
 - 趋势不造数：少于 2 个数据点时显示空态提示。
 
 ## 本地开发
@@ -36,11 +37,13 @@ pnpm collect    # 全量采集（约 950 请求）
 COLLECT_LIMIT=2 pnpm collect   # 冒烟：只采前 2 个区
 ```
 
-## 部署（Vercel）
+## 部署（GitHub Pages）
 
-1. GitHub 导入本仓库（私有仓，Framework Preset 选 **Vite**）。
-2. 构建命令 `pnpm build`，输出目录 `dist`（默认即可）。
-3. 每日采集 workflow 提交新快照后自动触发重新部署。
+已部署：<https://li-shun-code.github.io/fangjia-monitor/>（公有仓，免费计划即可用 Pages）。
+
+- push 到 main 即自动构建发布（`deploy.yml`）；每日采集提交也会触发更新。
+- 项目页路径带 `/fangjia-monitor/` 前缀：构建时由 `PAGES_BASE` 环境变量注入（见 `vite.config.ts`）。
+- 手动触发：仓库 Actions → deploy-pages → Run workflow。
 
 ## 已知限制
 
